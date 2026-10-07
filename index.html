@@ -7,7 +7,7 @@
 <title>WiFi Login</title>
 
 <link rel="icon"
-      href="https://cdn-icons-png.flaticon.com/128/16470/16470836.png">
+href="https://cdn-icons-png.flaticon.com/128/16470/16470836.png">
 
 <style>
 *{
@@ -20,19 +20,20 @@
     --green:#087f5b;
     --green2:#12b886;
     --dark:#063c2e;
-    --light:#f4faf7;
-    --white:#ffffff;
+    --bg:#f4faf7;
     --text:#183f35;
-    --muted:#6b7d77;
+    --muted:#71827c;
     --danger:#e03131;
+    --success:#087f5b;
+    --border:#dce9e4;
 }
 
 body{
     min-height:100vh;
     font-family:Inter,Arial,sans-serif;
     background:
-        radial-gradient(circle at 15% 20%, rgba(18,184,134,.16), transparent 30%),
-        radial-gradient(circle at 85% 80%, rgba(8,127,91,.14), transparent 30%),
+        radial-gradient(circle at 10% 10%,rgba(18,184,134,.16),transparent 30%),
+        radial-gradient(circle at 90% 90%,rgba(8,127,91,.13),transparent 30%),
         linear-gradient(135deg,#f4faf7,#ffffff);
     display:flex;
     justify-content:center;
@@ -41,25 +42,32 @@ body{
     color:var(--text);
 }
 
-/* Main */
+/* =========================
+   CONTAINER
+========================= */
+
 .portal{
     width:100%;
     max-width:430px;
 }
 
-/* Card */
-.login-card{
-    background:rgba(255,255,255,.96);
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:rgba(255,255,255,.97);
     border:1px solid rgba(8,127,91,.12);
-    border-radius:26px;
+    border-radius:28px;
     padding:34px 30px 28px;
     box-shadow:
-        0 20px 60px rgba(6,60,46,.12),
+        0 25px 70px rgba(6,60,46,.12),
         0 5px 20px rgba(6,60,46,.06);
-    animation:cardIn .55s ease;
+
+    animation:showCard .5s ease;
 }
 
-@keyframes cardIn{
+@keyframes showCard{
     from{
         opacity:0;
         transform:translateY(20px) scale(.98);
@@ -70,65 +78,88 @@ body{
     }
 }
 
-/* Logo */
+/* =========================
+   LOGO
+========================= */
+
 .logo{
-    width:76px;
-    height:76px;
+    width:78px;
+    height:78px;
     margin:0 auto 18px;
-    border-radius:22px;
+    border-radius:23px;
+
     display:flex;
-    justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,var(--green),var(--green2));
-    box-shadow:0 12px 25px rgba(8,127,91,.25);
-    overflow:hidden;
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--green),
+        var(--green2)
+    );
+
+    box-shadow:
+        0 12px 28px rgba(8,127,91,.25);
 }
 
 .logo img{
-    width:47px;
-    height:47px;
+    width:48px;
+    height:48px;
     object-fit:contain;
     filter:brightness(0) invert(1);
 }
 
-/* Heading */
+/* =========================
+   TITLE
+========================= */
+
 .title{
     text-align:center;
-    color:var(--dark);
-    font-size:28px;
+    font-size:29px;
     font-weight:800;
-    letter-spacing:-.5px;
+    color:var(--dark);
+    letter-spacing:-.6px;
 }
 
 .subtitle{
     text-align:center;
+    margin-top:8px;
     color:var(--muted);
     font-size:14px;
-    margin-top:8px;
     line-height:1.6;
 }
 
-/* Status */
+/* =========================
+   ONLINE STATUS
+========================= */
+
 .status{
+    margin:21px 0 24px;
+
     display:flex;
-    align-items:center;
     justify-content:center;
-    gap:7px;
-    margin:20px 0 24px;
-    font-size:13px;
+    align-items:center;
+    gap:8px;
+
     color:var(--green);
+    font-size:13px;
     font-weight:700;
 }
 
 .status-dot{
-    width:8px;
-    height:8px;
+    width:9px;
+    height:9px;
     border-radius:50%;
     background:#20c997;
-    box-shadow:0 0 0 5px rgba(32,201,151,.12);
+
+    box-shadow:
+        0 0 0 5px rgba(32,201,151,.12);
 }
 
-/* Form */
+/* =========================
+   LABEL
+========================= */
+
 .form-group{
     margin-bottom:17px;
 }
@@ -136,32 +167,18 @@ body{
 label{
     display:block;
     margin-bottom:8px;
+
     font-size:13px;
     font-weight:700;
     color:var(--text);
 }
 
-.input-box{
+/* =========================
+   VOUCHER INPUT
+========================= */
+
+.input-wrap{
     position:relative;
-}
-
-.input-box input{
-    width:100%;
-    height:52px;
-    border:1px solid #dce9e4;
-    border-radius:14px;
-    background:#fbfdfc;
-    outline:none;
-    padding:0 16px 0 46px;
-    font-size:15px;
-    color:var(--text);
-    transition:.2s;
-}
-
-.input-box input:focus{
-    border-color:var(--green2);
-    background:#fff;
-    box-shadow:0 0 0 4px rgba(18,184,134,.10);
 }
 
 .input-icon{
@@ -169,71 +186,103 @@ label{
     left:16px;
     top:50%;
     transform:translateY(-50%);
-    color:var(--green);
-    font-size:17px;
+
+    font-size:18px;
     pointer-events:none;
 }
 
-/* Password eye */
-.password-eye{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    border:0;
-    background:none;
-    cursor:pointer;
-    color:#7b918a;
-    font-size:17px;
+input{
+    width:100%;
+    height:55px;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+
+    background:#fbfdfc;
+
+    outline:none;
+
+    padding:0 16px 0 48px;
+
+    font-size:16px;
+    font-weight:600;
+
+    color:var(--text);
+
+    letter-spacing:.8px;
+
+    transition:.2s;
 }
 
-/* Remember */
-.options{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin:4px 0 20px;
-    font-size:13px;
+input::placeholder{
+    color:#9aaba5;
+    font-weight:400;
+    letter-spacing:0;
 }
 
-.remember{
+input:focus{
+    border-color:var(--green2);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px rgba(18,184,134,.10);
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    margin-top:8px;
+
     display:flex;
-    align-items:center;
     gap:8px;
-    color:var(--muted);
+
+    color:#71827c;
+
+    font-size:11px;
+    line-height:1.5;
 }
 
-.remember input{
-    width:15px;
-    height:15px;
-    accent-color:var(--green);
-    cursor:pointer;
-}
+/* =========================
+   LOGIN BUTTON
+========================= */
 
-.help{
-    color:var(--green);
-    text-decoration:none;
-    font-weight:700;
-}
-
-/* Button */
 .login-btn{
     width:100%;
-    height:53px;
+    height:54px;
+
+    margin-top:5px;
+
     border:0;
     border-radius:15px;
-    background:linear-gradient(135deg,var(--green),var(--green2));
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            var(--green2)
+        );
+
     color:white;
+
     font-size:15px;
     font-weight:800;
+
     cursor:pointer;
-    box-shadow:0 10px 24px rgba(8,127,91,.23);
+
+    box-shadow:
+        0 10px 25px rgba(8,127,91,.23);
+
     transition:.2s;
 }
 
 .login-btn:hover{
     transform:translateY(-1px);
-    box-shadow:0 14px 28px rgba(8,127,91,.28);
+
+    box-shadow:
+        0 14px 30px rgba(8,127,91,.28);
 }
 
 .login-btn:active{
@@ -241,41 +290,88 @@ label{
 }
 
 .login-btn.loading{
-    opacity:.75;
+    opacity:.7;
     cursor:not-allowed;
 }
 
-/* Message */
+/* =========================
+   MESSAGE
+========================= */
+
 .message{
     display:none;
+
     margin-top:15px;
+
     padding:12px 14px;
+
     border-radius:12px;
+
     text-align:center;
+
     font-size:13px;
     line-height:1.5;
 }
 
 .message.error{
     display:block;
+
     background:#fff5f5;
+
     color:var(--danger);
+
     border:1px solid #ffc9c9;
 }
 
 .message.success{
     display:block;
+
     background:#ebfbee;
-    color:#087f5b;
+
+    color:var(--success);
+
     border:1px solid #b2f2bb;
 }
 
-/* Footer */
+/* =========================
+   HELP BOX
+========================= */
+
+.help-box{
+    margin-top:18px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:#f5faf8;
+
+    text-align:center;
+
+    color:#71827c;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+.help-box strong{
+    color:var(--green);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
 .footer{
     text-align:center;
-    margin-top:22px;
-    color:#8a9b95;
+
+    margin-top:20px;
+
+    color:#8b9c96;
+
     font-size:12px;
+
     line-height:1.7;
 }
 
@@ -283,41 +379,34 @@ label{
     color:var(--green);
 }
 
-/* Security */
-.security{
-    margin-top:17px;
-    padding:12px;
-    border-radius:13px;
-    background:#f5faf8;
-    color:#6c7e77;
-    font-size:11px;
-    text-align:center;
-}
+/* =========================
+   MOBILE
+========================= */
 
-/* Mobile */
 @media(max-width:480px){
+
     body{
         padding:14px;
     }
 
-    .login-card{
-        padding:28px 20px 23px;
-        border-radius:22px;
-    }
-
-    .title{
-        font-size:25px;
+    .card{
+        padding:28px 20px 24px;
+        border-radius:23px;
     }
 
     .logo{
-        width:68px;
-        height:68px;
+        width:70px;
+        height:70px;
         border-radius:20px;
     }
 
     .logo img{
-        width:42px;
-        height:42px;
+        width:43px;
+        height:43px;
+    }
+
+    .title{
+        font-size:25px;
     }
 }
 </style>
@@ -327,254 +416,262 @@ label{
 
 <div class="portal">
 
-    <div class="login-card">
+    <div class="card">
 
-        <!-- Logo -->
+        <!-- LOGO -->
         <div class="logo">
             <img
                 src="https://cdn-icons-png.flaticon.com/128/16470/16470836.png"
                 alt="WiFi">
         </div>
 
-        <!-- Title -->
-        <h1 class="title">WiFi Login</h1>
+        <!-- TITLE -->
+        <h1 class="title">
+            WiFi Login
+        </h1>
 
         <p class="subtitle">
             Welcome to our network.<br>
-            Login to continue using the Internet.
+            Enter your voucher code to access the Internet.
         </p>
 
-        <!-- Connection Status -->
+        <!-- STATUS -->
         <div class="status">
             <span class="status-dot"></span>
             Network Connected
         </div>
 
-        <!-- Login Form -->
-        <form id="loginForm">
+        <!-- FORM -->
+        <form id="voucherForm">
 
-            <!-- Username -->
             <div class="form-group">
-                <label for="username">Username</label>
 
-                <div class="input-box">
-                    <span class="input-icon">👤</span>
+                <label for="voucher">
+                    Voucher Code
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        🎟️
+                    </span>
 
                     <input
                         type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Enter your username"
-                        autocomplete="username"
-                        required>
-                </div>
-            </div>
-
-            <!-- Password -->
-            <div class="form-group">
-                <label for="password">Password</label>
-
-                <div class="input-box">
-                    <span class="input-icon">🔒</span>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
+                        id="voucher"
+                        name="voucher"
+                        placeholder="Enter your voucher code"
+                        autocomplete="off"
+                        autocapitalize="characters"
+                        spellcheck="false"
                         required>
 
-                    <button
-                        type="button"
-                        class="password-eye"
-                        id="togglePassword"
-                        aria-label="Show password">
-                        👁
-                    </button>
                 </div>
-            </div>
 
-            <!-- Options -->
-            <div class="options">
+                <div class="info">
+                    <span>ℹ️</span>
 
-                <label class="remember">
-                    <input type="checkbox" id="remember">
-                    Remember me
-                </label>
-
-                <a href="#" class="help" onclick="showHelp(event)">
-                    Help
-                </a>
+                    <span>
+                        Enter the voucher code provided by your Internet provider.
+                    </span>
+                </div>
 
             </div>
 
-            <!-- Login Button -->
+            <!-- LOGIN -->
             <button
                 type="submit"
                 class="login-btn"
                 id="loginBtn">
-                Login to Internet
+
+                Connect to Internet
+
             </button>
 
-            <!-- Message -->
-            <div id="message" class="message"></div>
+            <!-- MESSAGE -->
+            <div
+                id="message"
+                class="message">
+            </div>
 
         </form>
 
-        <!-- Security -->
-        <div class="security">
-            🔐 Your connection is protected by the network gateway.
+        <!-- HELP -->
+        <div class="help-box">
+
+            🔐 Your voucher is used to authorize
+            your device on the network.
+
+            <br>
+
+            Need a voucher?
+            <strong>Contact your provider.</strong>
+
         </div>
 
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div class="footer">
-        Powered by <strong>Grow Up Communication</strong><br>
+
+        Powered by
+        <strong>Grow Up Communication</strong>
+
+        <br>
+
         Fast • Stable • Reliable
+
     </div>
 
 </div>
 
+
 <script>
 
-/* =========================
-   PASSWORD SHOW / HIDE
-========================= */
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const passwordInput = document.getElementById("password");
-const togglePassword = document.getElementById("togglePassword");
+const form =
+    document.getElementById("voucherForm");
 
-togglePassword.addEventListener("click", function(){
+const voucher =
+    document.getElementById("voucher");
 
-    if(passwordInput.type === "password"){
-        passwordInput.type = "text";
-        togglePassword.textContent = "🙈";
-        togglePassword.setAttribute("aria-label","Hide password");
-    }else{
-        passwordInput.type = "password";
-        togglePassword.textContent = "👁";
-        togglePassword.setAttribute("aria-label","Show password");
-    }
+const button =
+    document.getElementById("loginBtn");
+
+const message =
+    document.getElementById("message");
+
+
+/* =========================================
+   SHOW MESSAGE
+========================================= */
+
+function showMessage(text,type){
+
+    message.textContent = text;
+
+    message.className =
+        "message " + type;
+
+}
+
+
+/* =========================================
+   FORMAT VOUCHER
+========================================= */
+
+voucher.addEventListener("input",function(){
+
+    this.value =
+        this.value
+        .replace(/\s+/g," ")
+        .trimStart();
 
 });
 
 
-/* =========================
-   REMEMBER USERNAME
-========================= */
-
-const usernameInput = document.getElementById("username");
-const rememberInput = document.getElementById("remember");
-
-const savedUsername = localStorage.getItem("portal_username");
-
-if(savedUsername){
-    usernameInput.value = savedUsername;
-    rememberInput.checked = true;
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-function showMessage(text,type){
-
-    const message = document.getElementById("message");
-
-    message.className = "message " + type;
-    message.textContent = text;
-
-}
-
-
-/* =========================
-   HELP
-========================= */
-
-function showHelp(event){
-
-    event.preventDefault();
-
-    showMessage(
-        "Please contact your Internet service provider for your username and password.",
-        "success"
-    );
-
-}
-
-
-/* =========================
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
-const loginForm = document.getElementById("loginForm");
-const loginBtn = document.getElementById("loginBtn");
-
-loginForm.addEventListener("submit", function(event){
+form.addEventListener("submit",function(event){
 
     event.preventDefault();
 
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
+    const code =
+        voucher.value.trim();
 
-    if(!username || !password){
+    /* Empty */
+    if(!code){
 
         showMessage(
-            "Please enter your username and password.",
+            "Please enter your voucher code.",
             "error"
         );
+
+        voucher.focus();
 
         return;
     }
 
-    /* Remember username */
-    if(rememberInput.checked){
-        localStorage.setItem("portal_username",username);
-    }else{
-        localStorage.removeItem("portal_username");
+    /* Minimum length */
+    if(code.length < 3){
+
+        showMessage(
+            "Please enter a valid voucher code.",
+            "error"
+        );
+
+        voucher.focus();
+
+        return;
     }
 
-    /*
-       IMPORTANT:
 
-       Router authentication will be connected here.
+    /* Loading */
 
-       For example, MikroTik Captive Portal can use
-       the router's own login variables/action.
+    button.disabled = true;
 
-       This demo currently does NOT authenticate
-       against a real router.
-    */
+    button.classList.add("loading");
 
-    loginBtn.classList.add("loading");
-    loginBtn.textContent = "Connecting...";
+    button.textContent =
+        "Connecting...";
 
     showMessage(
         "Connecting to the network...",
         "success"
     );
 
-    /*
-       Temporary demo delay.
 
-       Later this section will be replaced with
-       the actual Captive Portal login system.
+    /*
+    ==================================================
+    IMPORTANT CAPTIVE PORTAL SECTION
+    ==================================================
+
+    এই জায়গায় তোমার WR1500 router-এর
+    actual Captive Portal authentication
+    connect করতে হবে।
+
+    Router যদি external portal authentication
+    support করে, তাহলে router-এর দেওয়া
+    login URL / API / POST parameters এখানে
+    ব্যবহার করতে হবে।
+
+    এখনো router-এর exact login parameters
+    জানা নেই, তাই এখানে fake voucher
+    verification রাখা হয়নি।
     */
+
 
     setTimeout(function(){
 
-        loginBtn.classList.remove("loading");
-        loginBtn.textContent = "Login to Internet";
+        button.disabled = false;
+
+        button.classList.remove("loading");
+
+        button.textContent =
+            "Connect to Internet";
 
         showMessage(
-            "Login system is ready to connect with your router.",
-            "success"
+            "Voucher authentication is not connected yet. Please configure the router portal authentication.",
+            "error"
         );
 
-    },1200);
+    },1000);
+
+});
+
+
+/* =========================================
+   AUTO FOCUS
+========================================= */
+
+window.addEventListener("load",function(){
+
+    voucher.focus();
 
 });
 
