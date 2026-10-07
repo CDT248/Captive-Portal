@@ -1,0 +1,586 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WiFi Login</title>
+
+<link rel="icon"
+      href="https://cdn-icons-png.flaticon.com/128/16470/16470836.png">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --green:#087f5b;
+    --green2:#12b886;
+    --dark:#063c2e;
+    --light:#f4faf7;
+    --white:#ffffff;
+    --text:#183f35;
+    --muted:#6b7d77;
+    --danger:#e03131;
+}
+
+body{
+    min-height:100vh;
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(18,184,134,.16), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(8,127,91,.14), transparent 30%),
+        linear-gradient(135deg,#f4faf7,#ffffff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    color:var(--text);
+}
+
+/* Main */
+.portal{
+    width:100%;
+    max-width:430px;
+}
+
+/* Card */
+.login-card{
+    background:rgba(255,255,255,.96);
+    border:1px solid rgba(8,127,91,.12);
+    border-radius:26px;
+    padding:34px 30px 28px;
+    box-shadow:
+        0 20px 60px rgba(6,60,46,.12),
+        0 5px 20px rgba(6,60,46,.06);
+    animation:cardIn .55s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* Logo */
+.logo{
+    width:76px;
+    height:76px;
+    margin:0 auto 18px;
+    border-radius:22px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    box-shadow:0 12px 25px rgba(8,127,91,.25);
+    overflow:hidden;
+}
+
+.logo img{
+    width:47px;
+    height:47px;
+    object-fit:contain;
+    filter:brightness(0) invert(1);
+}
+
+/* Heading */
+.title{
+    text-align:center;
+    color:var(--dark);
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    margin-top:8px;
+    line-height:1.6;
+}
+
+/* Status */
+.status{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    margin:20px 0 24px;
+    font-size:13px;
+    color:var(--green);
+    font-weight:700;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#20c997;
+    box-shadow:0 0 0 5px rgba(32,201,151,.12);
+}
+
+/* Form */
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--text);
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box input{
+    width:100%;
+    height:52px;
+    border:1px solid #dce9e4;
+    border-radius:14px;
+    background:#fbfdfc;
+    outline:none;
+    padding:0 16px 0 46px;
+    font-size:15px;
+    color:var(--text);
+    transition:.2s;
+}
+
+.input-box input:focus{
+    border-color:var(--green2);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(18,184,134,.10);
+}
+
+.input-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--green);
+    font-size:17px;
+    pointer-events:none;
+}
+
+/* Password eye */
+.password-eye{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    border:0;
+    background:none;
+    cursor:pointer;
+    color:#7b918a;
+    font-size:17px;
+}
+
+/* Remember */
+.options{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:4px 0 20px;
+    font-size:13px;
+}
+
+.remember{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--muted);
+}
+
+.remember input{
+    width:15px;
+    height:15px;
+    accent-color:var(--green);
+    cursor:pointer;
+}
+
+.help{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:700;
+}
+
+/* Button */
+.login-btn{
+    width:100%;
+    height:53px;
+    border:0;
+    border-radius:15px;
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    color:white;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(8,127,91,.23);
+    transition:.2s;
+}
+
+.login-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 14px 28px rgba(8,127,91,.28);
+}
+
+.login-btn:active{
+    transform:translateY(1px);
+}
+
+.login-btn.loading{
+    opacity:.75;
+    cursor:not-allowed;
+}
+
+/* Message */
+.message{
+    display:none;
+    margin-top:15px;
+    padding:12px 14px;
+    border-radius:12px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.message.error{
+    display:block;
+    background:#fff5f5;
+    color:var(--danger);
+    border:1px solid #ffc9c9;
+}
+
+.message.success{
+    display:block;
+    background:#ebfbee;
+    color:#087f5b;
+    border:1px solid #b2f2bb;
+}
+
+/* Footer */
+.footer{
+    text-align:center;
+    margin-top:22px;
+    color:#8a9b95;
+    font-size:12px;
+    line-height:1.7;
+}
+
+.footer strong{
+    color:var(--green);
+}
+
+/* Security */
+.security{
+    margin-top:17px;
+    padding:12px;
+    border-radius:13px;
+    background:#f5faf8;
+    color:#6c7e77;
+    font-size:11px;
+    text-align:center;
+}
+
+/* Mobile */
+@media(max-width:480px){
+    body{
+        padding:14px;
+    }
+
+    .login-card{
+        padding:28px 20px 23px;
+        border-radius:22px;
+    }
+
+    .title{
+        font-size:25px;
+    }
+
+    .logo{
+        width:68px;
+        height:68px;
+        border-radius:20px;
+    }
+
+    .logo img{
+        width:42px;
+        height:42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="portal">
+
+    <div class="login-card">
+
+        <!-- Logo -->
+        <div class="logo">
+            <img
+                src="https://cdn-icons-png.flaticon.com/128/16470/16470836.png"
+                alt="WiFi">
+        </div>
+
+        <!-- Title -->
+        <h1 class="title">WiFi Login</h1>
+
+        <p class="subtitle">
+            Welcome to our network.<br>
+            Login to continue using the Internet.
+        </p>
+
+        <!-- Connection Status -->
+        <div class="status">
+            <span class="status-dot"></span>
+            Network Connected
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+
+            <!-- Username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+
+                <div class="input-box">
+                    <span class="input-icon">👤</span>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <div class="input-box">
+                    <span class="input-icon">🔒</span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="password-eye"
+                        id="togglePassword"
+                        aria-label="Show password">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <!-- Options -->
+            <div class="options">
+
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    Remember me
+                </label>
+
+                <a href="#" class="help" onclick="showHelp(event)">
+                    Help
+                </a>
+
+            </div>
+
+            <!-- Login Button -->
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn">
+                Login to Internet
+            </button>
+
+            <!-- Message -->
+            <div id="message" class="message"></div>
+
+        </form>
+
+        <!-- Security -->
+        <div class="security">
+            🔐 Your connection is protected by the network gateway.
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Powered by <strong>Grow Up Communication</strong><br>
+        Fast • Stable • Reliable
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   PASSWORD SHOW / HIDE
+========================= */
+
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", function(){
+
+    if(passwordInput.type === "password"){
+        passwordInput.type = "text";
+        togglePassword.textContent = "🙈";
+        togglePassword.setAttribute("aria-label","Hide password");
+    }else{
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁";
+        togglePassword.setAttribute("aria-label","Show password");
+    }
+
+});
+
+
+/* =========================
+   REMEMBER USERNAME
+========================= */
+
+const usernameInput = document.getElementById("username");
+const rememberInput = document.getElementById("remember");
+
+const savedUsername = localStorage.getItem("portal_username");
+
+if(savedUsername){
+    usernameInput.value = savedUsername;
+    rememberInput.checked = true;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text,type){
+
+    const message = document.getElementById("message");
+
+    message.className = "message " + type;
+    message.textContent = text;
+
+}
+
+
+/* =========================
+   HELP
+========================= */
+
+function showHelp(event){
+
+    event.preventDefault();
+
+    showMessage(
+        "Please contact your Internet service provider for your username and password.",
+        "success"
+    );
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+const loginForm = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+
+loginForm.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if(!username || !password){
+
+        showMessage(
+            "Please enter your username and password.",
+            "error"
+        );
+
+        return;
+    }
+
+    /* Remember username */
+    if(rememberInput.checked){
+        localStorage.setItem("portal_username",username);
+    }else{
+        localStorage.removeItem("portal_username");
+    }
+
+    /*
+       IMPORTANT:
+
+       Router authentication will be connected here.
+
+       For example, MikroTik Captive Portal can use
+       the router's own login variables/action.
+
+       This demo currently does NOT authenticate
+       against a real router.
+    */
+
+    loginBtn.classList.add("loading");
+    loginBtn.textContent = "Connecting...";
+
+    showMessage(
+        "Connecting to the network...",
+        "success"
+    );
+
+    /*
+       Temporary demo delay.
+
+       Later this section will be replaced with
+       the actual Captive Portal login system.
+    */
+
+    setTimeout(function(){
+
+        loginBtn.classList.remove("loading");
+        loginBtn.textContent = "Login to Internet";
+
+        showMessage(
+            "Login system is ready to connect with your router.",
+            "success"
+        );
+
+    },1200);
+
+});
+
+</script>
+
+</body>
+</html>
+```
